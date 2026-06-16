@@ -1,12 +1,8 @@
-# Quiz Full Stack — Préparation entretiens Java/Angular
-
-Application de quiz interactif pour préparer les entretiens techniques Junior+/Mid en Full Stack Java/Angular, ciblant le marché belge. Toutes les données sont stockées localement — aucun backend, aucune inscription.
-
----
+# Quiz Full Stack
 
 ## Objectif
 
-Permettre aux développeurs de s'entraîner sur les sujets clés exigés en entretien : Java/Spring, Angular/TypeScript, PostgreSQL/JPA, REST/HTTP, Docker/Git, Tests/Maven/Big O et CI/CD. Un algorithme de répétition espacée pèse les questions ratées plus lourdement afin de concentrer l'effort sur les lacunes.
+Permettre aux développeurs de s'entraîner sur les sujets clés : Java/Spring, Angular/TypeScript, PostgreSQL/JPA, REST/HTTP, Docker/Git, Tests/Maven/Big O et CI/CD. Un algorithme de répétition espacée pèse les questions ratées plus lourdement afin de concentrer l'effort sur les lacunes.
 
 ---
 
