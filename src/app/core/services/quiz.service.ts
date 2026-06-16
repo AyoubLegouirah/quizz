@@ -1,7 +1,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { Category, Question, QuestionState } from '../models/question.model';
+import { Category, DifficultyFilter, Question, QuestionState } from '../models/question.model';
 import { CategoryStats, SessionResult, UserProgress } from '../models/progress.model';
 import { StorageService } from './storage.service';
 import { SpacedRepetitionService } from './spaced-repetition.service';
@@ -46,15 +46,23 @@ export class QuizService {
     );
   }
 
-  async startSession(category: Category | 'random', size = DEFAULT_SESSION_SIZE): Promise<void> {
+  async startSession(
+    category: Category | 'random',
+    size = DEFAULT_SESSION_SIZE,
+    difficulty: DifficultyFilter | null = null,
+  ): Promise<void> {
     await this.loadQuestions();
     this.userProgress = this.storage.loadProgress();
     this._category.set(category);
     this.sessionSize = size;
-    this.sessionPool =
+    const byCategory =
       category === 'random'
         ? [...this.allQuestions]
         : this.allQuestions.filter(q => q.category === category);
+    this.sessionPool =
+      difficulty && difficulty !== 'toutes'
+        ? byCategory.filter(q => q.difficulty === difficulty)
+        : byCategory;
     this._answeredCount.set(0);
     this._score.set(0);
     this._streak.set(0);

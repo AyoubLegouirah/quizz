@@ -1,7 +1,7 @@
 import { Component, inject, effect } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { QuizService } from '../../core/services/quiz.service';
-import { Category } from '../../core/models/question.model';
+import { Category, DifficultyFilter } from '../../core/models/question.model';
 
 const CATEGORY_LABELS: Record<Category | 'random', string> = {
   java_spring: 'Java / Spring Boot',
@@ -36,7 +36,8 @@ export class QuizComponent {
     const category = (this.route.snapshot.queryParamMap.get('category') ?? 'random') as
       | Category
       | 'random';
-    this.quizService.startSession(category);
+    const difficulty = (this.route.snapshot.queryParamMap.get('difficulty') ?? 'toutes') as DifficultyFilter;
+    this.quizService.startSession(category, undefined, difficulty);
 
     effect(() => {
       if (this.quizService.isComplete()) {

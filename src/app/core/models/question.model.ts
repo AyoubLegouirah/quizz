@@ -8,6 +8,7 @@ export type Category =
   | 'cicd';
 
 export type Difficulty = 'facile' | 'moyen' | 'difficile';
+export type DifficultyFilter = Difficulty | 'toutes';
 
 export interface Question {
   id: string;

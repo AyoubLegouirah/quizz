@@ -161,6 +161,44 @@ $accent-light: #eef2ff;
   }
 }
 
+// ── Difficulty selector ───────────────────────────────────────────────────────
+.difficulty-selector {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.difficulty-pill {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.6rem 1rem;
+  background: $card-bg;
+  border: 1.5px solid $border;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $text-muted;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s;
+
+  &:hover {
+    border-color: $accent;
+    color: $accent;
+    transform: translateY(-1px);
+  }
+
+  &.selected {
+    border-color: $accent;
+    background: $accent-light;
+    color: $accent;
+    box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+  }
+
+  &[data-diff='facile'].selected   { border-color: #16a34a; background: #f0fdf4; color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.15); }
+  &[data-diff='moyen'].selected    { border-color: #d97706; background: #fffbeb; color: #d97706; box-shadow: 0 0 0 3px rgba(217,119,6,.15); }
+  &[data-diff='difficile'].selected{ border-color: #dc2626; background: #fef2f2; color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,.15); }
+}
+
 // ── Actions ───────────────────────────────────────────────────────────────────
 .actions {
   display: flex;
