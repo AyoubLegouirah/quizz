@@ -1,0 +1,88 @@
+<div class="results">
+
+  <!-- ── Score principal ───────────────────────────────────────── -->
+  <div class="score-card">
+    <div class="score-card__emoji">{{ scoreEmoji }}</div>
+    <div class="score-card__percent">{{ scorePercent }}<span>%</span></div>
+    <div class="score-card__ratio">
+      {{ result.correctAnswers }} / {{ result.totalQuestions }} bonnes réponses
+    </div>
+    <div class="score-card__category">{{ categoryLabel }}</div>
+  </div>
+
+  <!-- ── Stats secondaires ─────────────────────────────────────── -->
+  <div class="meta-stats">
+    <div class="meta-stat">
+      <span class="meta-stat__value">🔥 {{ result.bestStreak }}</span>
+      <span class="meta-stat__label">Meilleur streak</span>
+    </div>
+    <div class="meta-stat">
+      <span class="meta-stat__value">⏱ {{ formattedDuration }}</span>
+      <span class="meta-stat__label">Durée</span>
+    </div>
+    <div class="meta-stat">
+      <span class="meta-stat__value">✗ {{ result.missedQuestionIds.length }}</span>
+      <span class="meta-stat__label">Ratées</span>
+    </div>
+  </div>
+
+  <!-- ── Questions ratées ──────────────────────────────────────── -->
+  @if (missedQuestions.length > 0) {
+    <section class="missed-section">
+      <h2 class="missed-section__title">Questions à retravailler</h2>
+
+      <div class="missed-list">
+        @for (q of missedQuestions; track q.id) {
+          <div class="missed-card">
+            <button
+              class="missed-card__toggle"
+              (click)="toggleExpand(q.id)"
+              [attr.aria-expanded]="isExpanded(q.id)"
+            >
+              <div class="missed-card__question">{{ q.question }}</div>
+              <span class="missed-card__chevron">{{ isExpanded(q.id) ? '▲' : '▼' }}</span>
+            </button>
+
+            @if (isExpanded(q.id)) {
+              <div class="missed-card__body">
+
+                @if (q.code) {
+                  <div class="code-block">
+                    <div class="code-block__header">
+                      <span class="code-block__lang">Java</span>
+                    </div>
+                    <pre><code>{{ q.code }}</code></pre>
+                  </div>
+                }
+
+                <div class="correct-answer">
+                  <span class="correct-answer__label">Bonne réponse :</span>
+                  <span class="correct-answer__text">
+                    {{ ['A','B','C','D'][q.correctIndex] }}. {{ getCorrectOption(q) }}
+                  </span>
+                </div>
+
+                <p class="explanation">{{ q.explanation }}</p>
+
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+  } @else {
+    <div class="perfect">
+      <p>🎉 Aucune question ratée — session parfaite !</p>
+    </div>
+  }
+
+  <!-- ── Actions ───────────────────────────────────────────────── -->
+  <div class="actions">
+    <button class="btn-primary" (click)="replayCategory()">
+      Rejouer cette catégorie
+    </button>
+    <a routerLink="/progress" class="btn-secondary">Voir ma progression</a>
+    <a routerLink="/home" class="btn-ghost">Retour à l'accueil</a>
+  </div>
+
+</div>

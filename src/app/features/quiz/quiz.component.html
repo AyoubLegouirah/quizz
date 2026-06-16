@@ -1,0 +1,116 @@
+@if (!state()) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des questions…</p>
+  </div>
+}
+
+@if (state(); as s) {
+  <div class="quiz-layout">
+
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <header class="quiz-header">
+      <a routerLink="/home" class="exit-btn" title="Quitter">✕</a>
+
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          [style.width.%]="(progress().current / progress().total) * 100"
+        ></div>
+      </div>
+      <span class="progress-label">{{ progress().current }} / {{ progress().total }}</span>
+
+      <div class="stats">
+        <span class="stat score" title="Score">✓ {{ score() }}</span>
+        @if (streak() >= 2) {
+          <span class="stat streak" title="Streak">🔥 {{ streak() }}</span>
+        }
+      </div>
+    </header>
+
+    <!-- ── Card ───────────────────────────────────────────────── -->
+    <main class="quiz-card">
+
+      <!-- Badges + bookmark -->
+      <div class="card-meta">
+        <div class="badges">
+          <span class="badge badge--category">
+            {{ getCategoryLabel(s.question.category) }}
+          </span>
+          <span class="badge badge--{{ s.question.difficulty }}">
+            {{ s.question.difficulty }}
+          </span>
+        </div>
+
+        <button
+          class="bookmark-btn"
+          [class.active]="s.markedForReview"
+          (click)="toggleBookmark()"
+          title="{{ s.markedForReview ? 'Retirer de la liste À revoir' : 'Marquer À revoir' }}"
+        >
+          {{ s.markedForReview ? '★' : '☆' }}
+          <span>{{ s.markedForReview ? 'À revoir' : 'Marquer' }}</span>
+        </button>
+      </div>
+
+      <!-- Question -->
+      <p class="question-text">{{ s.question.question }}</p>
+
+      <!-- Snippet de code -->
+      @if (s.question.code) {
+        <div class="code-block">
+          <div class="code-block__header">
+            <span class="code-block__lang">Java</span>
+            <span class="code-block__dots">
+              <i></i><i></i><i></i>
+            </span>
+          </div>
+          <pre><code>{{ s.question.code }}</code></pre>
+        </div>
+      }
+
+      <!-- Options -->
+      <div class="options">
+        @for (option of s.question.options; track $index) {
+          <button
+            class="option {{ getOptionClass($index) }}"
+            (click)="answer($index)"
+            [disabled]="s.selectedIndex !== null"
+          >
+            <span class="option__letter">{{ letters[$index] }}</span>
+            <span class="option__text">{{ option }}</span>
+            @if (s.selectedIndex !== null && $index === s.question.correctIndex) {
+              <span class="option__icon">✓</span>
+            }
+            @if (s.selectedIndex === $index && !s.isCorrect) {
+              <span class="option__icon">✗</span>
+            }
+          </button>
+        }
+      </div>
+
+      <!-- Explication -->
+      @if (s.selectedIndex !== null) {
+        <div class="explanation" [class.explanation--correct]="s.isCorrect" [class.explanation--wrong]="!s.isCorrect">
+          <p class="explanation__verdict">
+            {{ s.isCorrect ? '✓ Bonne réponse !' : '✗ Mauvaise réponse' }}
+          </p>
+          <p class="explanation__body">{{ s.question.explanation }}</p>
+        </div>
+
+        <button class="btn-next" (click)="next()">
+          Question suivante <span>→</span>
+        </button>
+      }
+
+    </main>
+
+    <!-- Tags -->
+    <div class="tags">
+      @for (tag of s.question.tags; track tag) {
+        <span class="tag">{{ tag }}</span>
+      }
+    </div>
+
+  </div>
+}

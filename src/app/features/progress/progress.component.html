@@ -1,0 +1,86 @@
+<div class="progress-page">
+
+  <!-- ── Header ───────────────────────────────────────────────── -->
+  <header class="page-header">
+    <a routerLink="/home" class="back-btn">← Accueil</a>
+    <h1 class="page-header__title">Ma progression</h1>
+  </header>
+
+  @if (!hasPlayed) {
+    <div class="empty-state">
+      <p>Tu n'as pas encore joué. <a routerLink="/home">Commencer une session →</a></p>
+    </div>
+  } @else {
+
+    <!-- ── Stats globales ──────────────────────────────────────── -->
+    <div class="global-card">
+      <div class="global-stat">
+        <span class="global-stat__value">{{ globalAccuracy }}<small>%</small></span>
+        <span class="global-stat__label">Précision globale</span>
+      </div>
+      <div class="global-stat">
+        <span class="global-stat__value">{{ progress.totalAnswered }}</span>
+        <span class="global-stat__label">Questions répondues</span>
+      </div>
+      <div class="global-stat">
+        <span class="global-stat__value">{{ progress.totalCorrect }}</span>
+        <span class="global-stat__label">Bonnes réponses</span>
+      </div>
+      <div class="global-stat">
+        <span class="global-stat__value">{{ progress.bookmarked.length }}</span>
+        <span class="global-stat__label">À revoir</span>
+      </div>
+    </div>
+
+    <!-- ── Taux de maîtrise par catégorie ────────────────────── -->
+    <section class="categories-section">
+      <h2 class="categories-section__title">Maîtrise par catégorie</h2>
+
+      <div class="category-list">
+        @for (row of rows; track row.key) {
+          <div class="cat-row">
+            <div class="cat-row__meta">
+              <span class="cat-row__icon">{{ row.icon }}</span>
+              <span class="cat-row__label">{{ row.label }}</span>
+              <span class="cat-row__rate cat-row__rate--{{ row.colorClass }}">
+                @if (row.stats) {
+                  {{ row.masteryRate }}%
+                } @else {
+                  —
+                }
+              </span>
+            </div>
+
+            <div class="bar-track">
+              <div
+                class="bar-fill bar-fill--{{ row.colorClass }}"
+                [style.width.%]="row.masteryRate"
+              ></div>
+            </div>
+
+            @if (row.stats) {
+              <div class="cat-row__detail">
+                {{ row.stats.correct }} / {{ row.stats.total }} correctes
+              </div>
+            } @else {
+              <div class="cat-row__detail cat-row__detail--empty">Non commencée</div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Légende ─────────────────────────────────────────────── -->
+    <div class="legend">
+      <span class="legend__item legend__item--red">< 40% — À travailler</span>
+      <span class="legend__item legend__item--orange">40–70% — En progression</span>
+      <span class="legend__item legend__item--green">> 70% — Maîtrisé</span>
+    </div>
+
+  }
+
+  <div class="footer-actions">
+    <a routerLink="/home" class="btn-start">Nouvelle session →</a>
+  </div>
+
+</div>

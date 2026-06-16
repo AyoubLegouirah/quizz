@@ -1,0 +1,60 @@
+<div class="home">
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero__badge">Full Stack · Java / Angular · Belgique</div>
+    <h1 class="hero__title">Quiz Tech<span class="hero__accent">.</span></h1>
+    <p class="hero__sub">Prépare tes entretiens techniques avec de la répétition espacée.</p>
+  </header>
+
+  <!-- ── Stats rapides (si l'utilisateur a déjà joué) ───────────── -->
+  @if (userProgress) {
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-item__value">{{ globalAccuracy }}<small>%</small></span>
+        <span class="stat-item__label">Précision globale</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-item__value">{{ userProgress.totalAnswered }}</span>
+        <span class="stat-item__label">Questions répondues</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-item__value">{{ userProgress.bookmarked.length }}</span>
+        <span class="stat-item__label">À revoir</span>
+      </div>
+    </div>
+  }
+
+  <!-- ── Sélection de catégorie ────────────────────────────────── -->
+  <section class="section">
+    <h2 class="section__title">Choisir une catégorie</h2>
+    <div class="category-grid">
+      @for (cat of categories; track cat.key) {
+        <button
+          class="category-card"
+          [class.selected]="selected() === cat.key"
+          (click)="select(cat.key)"
+        >
+          <span class="category-card__icon">{{ cat.icon }}</span>
+          <span class="category-card__label">{{ cat.label }}</span>
+          @if (selected() === cat.key) {
+            <span class="category-card__check">✓</span>
+          }
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- ── Actions ───────────────────────────────────────────────── -->
+  <div class="actions">
+    <button class="btn-start" (click)="start()">
+      Commencer la session <span>→</span>
+    </button>
+    <a routerLink="/progress" class="btn-progress">
+      Voir ma progression
+    </a>
+  </div>
+
+</div>
