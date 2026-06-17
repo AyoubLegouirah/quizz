@@ -8489,5 +8489,366 @@
     ],
     "correctIndex": 0,
     "explanation": "Un rollback consiste à revenir à la version précédente en production quand un déploiement cause des problèmes. Une bonne stratégie CI/CD doit permettre des rollbacks rapides (< 5 min). Les déploiements Blue/Green facilitent les rollbacks en rebsculant le trafic vers l'ancienne version."
+  },
+  {
+    "id": "fondamentaux_java_013",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Java",
+      "POO"
+    ],
+    "question": "Qu'est-ce qu'un constructeur en Java ?",
+    "options": [
+      "Une méthode qui retourne une instance de la classe parente",
+      "Une méthode spéciale appelée automatiquement à la création d'un objet, qui initialise ses attributs",
+      "Une annotation Spring qui instancie les beans au démarrage",
+      "Une méthode statique qui initialise les variables de classe"
+    ],
+    "correctIndex": 1,
+    "explanation": "Un constructeur porte le même nom que la classe, n'a pas de type de retour et est exécuté automatiquement par la JVM lors d'un new MaClasse(). Il sert à initialiser l'état initial de l'objet. Si aucun constructeur n'est défini, Java en génère un par défaut (sans argument)."
+  },
+  {
+    "id": "fondamentaux_java_014",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Java",
+      "POO"
+    ],
+    "question": "Quelle est la différence entre une méthode static et une méthode non-static en Java ?",
+    "options": [
+      "Une méthode non-static appartient à la classe et peut être appelée sans instanciation",
+      "Il n'y a aucune différence pratique, c'est une simple convention de nommage",
+      "Une méthode static appartient à la classe et s'appelle sans créer d'instance ; une méthode non-static appartient à l'instance et nécessite un objet",
+      "Une méthode static ne peut pas accéder aux variables déclarées dans la classe"
+    ],
+    "correctIndex": 2,
+    "explanation": "MaClasse.methodeStatique() s'appelle directement sur la classe. new MaClasse().methodeInstance() nécessite un objet. Une méthode static ne peut pas accéder aux champs d'instance (this) car il n'existe pas forcément d'objet à ce moment-là."
+  },
+  {
+    "id": "fondamentaux_java_015",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Java",
+      "POO"
+    ],
+    "question": "Qu'est-ce que l'encapsulation en POO ?",
+    "options": [
+      "Le fait de cacher les données internes d'un objet et de n'exposer que ce qui est nécessaire via des méthodes publiques (getters/setters)",
+      "Le fait qu'une classe peut hériter des propriétés d'une classe parente",
+      "Le fait qu'un objet peut prendre plusieurs formes différentes selon le contexte",
+      "Le regroupement de plusieurs classes dans un même package Java"
+    ],
+    "correctIndex": 0,
+    "explanation": "L'encapsulation consiste à déclarer les attributs private et à exposer uniquement des méthodes publiques pour les lire ou les modifier. Cela protège l'état interne de l'objet contre des modifications non contrôlées et permet de faire évoluer l'implémentation sans casser les clients."
+  },
+  {
+    "id": "fondamentaux_java_016",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Java",
+      "Lombok"
+    ],
+    "question": "À quoi sert Lombok (@Data, @Getter, @Setter) dans un projet Java ?",
+    "options": [
+      "C'est une bibliothèque qui remplace Spring Boot dans les petits projets",
+      "C'est un framework de test qui génère des mocks automatiquement",
+      "C'est un plugin Maven qui compresse le fichier JAR final pour la production",
+      "C'est une bibliothèque qui génère automatiquement le code répétitif (getters, setters, constructeurs, equals, hashCode) via des annotations au moment de la compilation"
+    ],
+    "correctIndex": 3,
+    "explanation": "@Data génère getters, setters, equals(), hashCode() et toString(). @Getter/@Setter génèrent uniquement les accesseurs. Lombok évite d'écrire des dizaines de lignes de code boilerplate en Java, ce qui rend les classes plus lisibles et maintient la conformité avec les conventions JavaBean."
+  },
+  {
+    "id": "fondamentaux_java_017",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Spring",
+      "injection de dépendances"
+    ],
+    "question": "Que fait concrètement l'annotation @Autowired dans Spring ?",
+    "options": [
+      "Elle marque une méthode pour qu'elle soit exécutée automatiquement au démarrage de l'application",
+      "Elle demande à Spring d'injecter automatiquement le bean correspondant dans le champ, le constructeur ou la méthode annoté(e)",
+      "Elle déclare une classe comme bean Spring de type service métier",
+      "Elle configure la connexion automatique à la base de données via JPA"
+    ],
+    "correctIndex": 1,
+    "explanation": "Quand Spring trouve @Autowired, il cherche dans son contexte (le conteneur IoC) un bean du type requis et l'injecte. Sur un constructeur (injection recommandée), la classe reçoit sa dépendance sans jamais la créer elle-même. Cela applique le principe d'inversion de contrôle."
+  },
+  {
+    "id": "fondamentaux_java_018",
+    "category": "java_spring",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Java",
+      "multithreading"
+    ],
+    "question": "Qu'est-ce qu'un Thread et le multithreading en Java ?",
+    "options": [
+      "Un Thread est un processus indépendant qui s'exécute dans une JVM séparée",
+      "Un Thread est un design pattern utilisé pour gérer les ressources partagées entre classes",
+      "Un Thread est une unité d'exécution légère permettant d'effectuer plusieurs tâches en parallèle dans un même processus",
+      "Le multithreading consiste à exécuter le même code plusieurs fois de manière séquentielle pour le tester"
+    ],
+    "correctIndex": 2,
+    "explanation": "Un Thread partage la mémoire du processus Java (heap) avec les autres threads, contrairement à un processus OS. Le multithreading permet d'exécuter des tâches simultanément (ex : traiter des requêtes HTTP en parallèle). Il introduit des défis comme les conditions de course (race conditions) et la synchronisation."
+  },
+  {
+    "id": "fondamentaux_angular_013",
+    "category": "angular_typescript",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Angular",
+      "architecture"
+    ],
+    "question": "Quelle est la différence entre un NgModule Angular et un composant standalone ?",
+    "options": [
+      "Un NgModule regroupe des composants/directives/services déclarés explicitement ; un standalone component se déclare autonome (standalone: true) sans appartenir à un NgModule",
+      "NgModule et standalone component sont des synonymes depuis Angular 15, les deux peuvent être utilisés indifféremment",
+      "Un NgModule est un composant qui n'a pas de template HTML associé",
+      "Un standalone component ne peut pas utiliser de services ni d'injection de dépendances"
+    ],
+    "correctIndex": 0,
+    "explanation": "Avant Angular 14, tout composant devait être déclaré dans un NgModule. Depuis Angular 14+, un standalone component (standalone: true) importe directement ses dépendances sans passer par un NgModule. C'est l'approche moderne recommandée qui simplifie l'architecture des applications Angular."
+  },
+  {
+    "id": "fondamentaux_angular_014",
+    "category": "angular_typescript",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Angular",
+      "template"
+    ],
+    "question": "À quoi sert la syntaxe {{ }} dans un template Angular ?",
+    "options": [
+      "C'est un bloc de code JavaScript exécuté directement dans le navigateur",
+      "C'est une directive structurelle qui répète un élément HTML pour chaque item d'une liste",
+      "C'est un opérateur TypeScript pour la concaténation de chaînes de caractères",
+      "C'est l'interpolation : elle affiche dynamiquement dans le HTML la valeur d'une propriété du composant, mise à jour automatiquement quand la valeur change"
+    ],
+    "correctIndex": 3,
+    "explanation": "{{ title }} dans le template affiche la valeur de la propriété title du composant TypeScript. C'est du one-way data binding (composant vers template). Angular réévalue l'expression à chaque cycle de détection de changements. On peut aussi écrire {{ 2 + 2 }} ou {{ user.name | uppercase }}."
+  },
+  {
+    "id": "fondamentaux_angular_015",
+    "category": "angular_typescript",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Angular",
+      "directives"
+    ],
+    "question": "À quoi servent les directives *ngFor et *ngIf dans Angular ?",
+    "options": [
+      "*ngFor et *ngIf sont des services Angular qui manipulent le DOM de manière programmatique",
+      "*ngFor répète un élément HTML pour chaque item d'une collection ; *ngIf affiche ou supprime un élément du DOM selon une condition booléenne",
+      "*ngFor filtre une liste selon un critère, *ngIf trie une liste dans le template HTML",
+      "Ce sont des pipes Angular pour formater respectivement les tableaux et les booléens"
+    ],
+    "correctIndex": 1,
+    "explanation": "<li *ngFor=\"let item of items\"> génère un li par item. <div *ngIf=\"isVisible\"> affiche le div uniquement si isVisible est true (sinon l'élément est retiré du DOM). Depuis Angular 17, @for et @if sont les alternatives modernes de ces directives structurelles."
+  },
+  {
+    "id": "fondamentaux_angular_016",
+    "category": "angular_typescript",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Angular",
+      "standalone"
+    ],
+    "question": "Qu'est-ce qu'un standalone component dans Angular ?",
+    "options": [
+      "Un composant qui fonctionne sans navigateur, utilisé uniquement pour le rendu côté serveur (SSR)",
+      "Un composant Angular qui n'a ni fichier de style ni template HTML associé",
+      "Un composant déclaré avec standalone: true qui gère lui-même ses imports et ne nécessite pas d'être enregistré dans un NgModule",
+      "Un composant qui ne peut pas être réutilisé ou importé dans d'autres composants de l'application"
+    ],
+    "correctIndex": 2,
+    "explanation": "@Component({ standalone: true, imports: [CommonModule, RouterLink] }) permet au composant de déclarer directement ce dont il a besoin. C'est l'approche recommandée depuis Angular 17 : plus de NgModules intermédiaires, la structure est plus simple et le tree-shaking plus efficace."
+  },
+  {
+    "id": "fondamentaux_angular_017",
+    "category": "angular_typescript",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Angular",
+      "RxJS",
+      "pipes"
+    ],
+    "question": "À quoi sert le pipe async dans Angular ?",
+    "options": [
+      "Il souscrit automatiquement à un Observable ou une Promise dans le template, affiche la valeur émise et se désabonne automatiquement quand le composant est détruit",
+      "Il formate les dates de manière asynchrone selon la locale de l'utilisateur dans les templates",
+      "Il retarde l'affichage d'une valeur dans le template d'un délai configurable en millisecondes",
+      "Il déclenche manuellement la détection de changements Angular de manière asynchrone"
+    ],
+    "correctIndex": 0,
+    "explanation": "{{ data$ | async }} souscrit à l'Observable data$ et affiche chaque valeur émise. L'avantage clé : pas besoin de gérer manuellement subscribe()/unsubscribe() — Angular s'en charge. C'est une bonne pratique pour éviter les fuites mémoire liées aux Observables non désabonnés."
+  },
+  {
+    "id": "fondamentaux_postgres_013",
+    "category": "postgresql_jpa",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "JPA",
+      "relations"
+    ],
+    "question": "Qu'est-ce que @OneToMany et @ManyToOne en JPA ?",
+    "options": [
+      "@OneToMany signifie qu'une table contient une seule ligne liée ; @ManyToOne qu'elle en contient plusieurs",
+      "Ce sont des annotations SQL natives pour déclarer des contraintes de clé étrangère directement en base",
+      "@OneToMany et @ManyToOne décrivent la même relation sans jamais créer de colonne FK en base de données",
+      "@OneToMany indique qu'une entité est liée à plusieurs entités d'un autre type (ex: un Auteur a plusieurs Livres) ; @ManyToOne est l'inverse — la FK est du côté @ManyToOne"
+    ],
+    "correctIndex": 3,
+    "explanation": "Ex : un Auteur @OneToMany Livres / chaque Livre @ManyToOne Auteur. La colonne auteur_id est dans la table livre (côté @ManyToOne). Dans le code Java, l'entité Auteur a une List<Livre> annotée @OneToMany, et l'entité Livre a un champ Auteur annoté @ManyToOne."
+  },
+  {
+    "id": "fondamentaux_postgres_014",
+    "category": "postgresql_jpa",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "JPA",
+      "performance"
+    ],
+    "question": "Quelle est la différence entre lazy loading et eager loading en JPA ?",
+    "options": [
+      "Lazy loading charge toutes les données liées immédiatement au démarrage ; eager loading les charge à la première utilisation",
+      "Lazy loading charge les entités liées uniquement quand on y accède dans le code ; eager loading les charge immédiatement avec l'entité principale dans la même requête SQL",
+      "Lazy et eager loading sont des stratégies de mise en cache SQL, indépendantes de JPA",
+      "Eager loading est plus performant dans tous les cas ; lazy loading est déprécié depuis JPA 3.0"
+    ],
+    "correctIndex": 1,
+    "explanation": "FetchType.LAZY (défaut pour @OneToMany) : la liste des entités liées n'est chargée que si on l'utilise — peut provoquer le problème N+1 si mal géré. FetchType.EAGER (défaut pour @ManyToOne) : les entités liées sont toujours chargées avec l'entité principale, ce qui peut être coûteux si la relation est volumineuse."
+  },
+  {
+    "id": "fondamentaux_postgres_015",
+    "category": "postgresql_jpa",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "SQL",
+      "agrégation"
+    ],
+    "question": "À quoi sert la clause GROUP BY en SQL ?",
+    "options": [
+      "GROUP BY trie les résultats d'une requête par ordre alphabétique ou numérique croissant",
+      "GROUP BY limite le nombre de lignes retournées par une requête SELECT",
+      "GROUP BY regroupe les lignes ayant la même valeur sur une colonne afin d'appliquer des fonctions d'agrégation (COUNT, SUM, AVG, MAX…) sur chaque groupe",
+      "GROUP BY filtre les lignes d'une table avant le SELECT, comme le ferait un WHERE"
+    ],
+    "correctIndex": 2,
+    "explanation": "SELECT categorie, COUNT(*) FROM produits GROUP BY categorie retourne le nombre de produits par catégorie. Sans GROUP BY, COUNT(*) retournerait le total global. HAVING permet ensuite de filtrer sur les résultats agrégés (là où WHERE ne peut pas s'appliquer)."
+  },
+  {
+    "id": "fondamentaux_postgres_016",
+    "category": "postgresql_jpa",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "SQL",
+      "contraintes"
+    ],
+    "question": "Quelle est la différence entre les contraintes NOT NULL et UNIQUE en SQL ?",
+    "options": [
+      "NOT NULL interdit les valeurs nulles dans une colonne ; UNIQUE garantit que chaque valeur présente est différente. Les deux contraintes peuvent coexister sur la même colonne",
+      "NOT NULL et UNIQUE sont équivalents : ils interdisent tous les deux les doublons dans une colonne",
+      "UNIQUE interdit les valeurs nulles ; NOT NULL interdit les valeurs dupliquées",
+      "NOT NULL s'applique uniquement à la clé primaire ; UNIQUE s'applique uniquement aux clés étrangères"
+    ],
+    "correctIndex": 0,
+    "explanation": "NOT NULL : la colonne doit toujours avoir une valeur (pas de NULL). UNIQUE : deux lignes ne peuvent pas avoir la même valeur dans cette colonne (mais NULL est généralement accepté et non comparé). Un email peut être NOT NULL UNIQUE : obligatoire et sans doublon. La clé primaire cumule implicitement les deux."
+  },
+  {
+    "id": "fondamentaux_rest_013",
+    "category": "rest_http",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "HTTP",
+      "codes de statut"
+    ],
+    "question": "Que signifie un code HTTP 500 ?",
+    "options": [
+      "La requête a été reçue mais le client n'est pas autorisé à accéder à la ressource demandée",
+      "La ressource demandée n'existe pas ou n'a pas été trouvée sur le serveur",
+      "Le serveur a bien traité la requête et renvoie une réponse réussie sans contenu",
+      "Une erreur interne inattendue s'est produite côté serveur, l'empêchant de traiter la requête"
+    ],
+    "correctIndex": 3,
+    "explanation": "HTTP 500 Internal Server Error indique un bug ou une exception non gérée côté serveur. C'est différent des erreurs 4xx qui sont causées par le client (400 Bad Request, 401 Unauthorized, 404 Not Found). En production, on renvoie un message générique au client pour ne pas exposer les détails techniques."
+  },
+  {
+    "id": "fondamentaux_rest_014",
+    "category": "rest_http",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "HTTP",
+      "requête"
+    ],
+    "question": "C'est quoi le body (corps) d'une requête HTTP ?",
+    "options": [
+      "L'URL complète de la ressource ciblée par la requête HTTP",
+      "La partie d'une requête ou d'une réponse HTTP qui contient les données envoyées — par exemple le JSON d'un POST ou le contenu HTML d'une réponse GET",
+      "L'ensemble des métadonnées techniques comme Content-Type, Authorization ou Accept",
+      "Le code de statut HTTP renvoyé par le serveur (200, 404, 500…)"
+    ],
+    "correctIndex": 1,
+    "explanation": "Une requête HTTP est composée de : une ligne de requête (méthode + URL), des headers (métadonnées), et optionnellement un body (les données). GET n'a généralement pas de body. POST/PUT envoient typiquement du JSON dans le body. Le header Content-Type indique le format du body (application/json, multipart/form-data…)."
+  },
+  {
+    "id": "fondamentaux_docker_013",
+    "category": "docker_git",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Git"
+    ],
+    "question": "À quoi sert le fichier .gitignore ?",
+    "options": [
+      "C'est un fichier de configuration Docker qui liste les couches à exclure de l'image lors du build",
+      "C'est un fichier Maven qui liste les dépendances à ne pas inclure dans le JAR final",
+      "C'est un fichier texte placé à la racine du dépôt qui liste les fichiers et dossiers que Git ne doit pas versionner (node_modules/, .env, target/, *.class…)",
+      "C'est un script Git exécuté automatiquement avant chaque commit pour valider la qualité du code"
+    ],
+    "correctIndex": 2,
+    "explanation": ".gitignore contient des patterns de fichiers à exclure du suivi Git. On y met typiquement : les dossiers de dépendances (node_modules/, .m2/), les fichiers de build (target/, dist/), les fichiers secrets (.env) et les fichiers générés par l'IDE (.idea/, .vscode/). Sans .gitignore, git add . inclurait tout, y compris des secrets."
+  },
+  {
+    "id": "fondamentaux_docker_014",
+    "category": "docker_git",
+    "difficulty": "facile",
+    "tags": [
+      "fondamentaux",
+      "Docker",
+      "Docker Compose"
+    ],
+    "question": "Que fait concrètement la commande docker-compose up ?",
+    "options": [
+      "Elle lit le fichier docker-compose.yml, crée et démarre tous les services (conteneurs) définis, en créant automatiquement les réseaux et volumes déclarés si nécessaire",
+      "Elle construit uniquement les images Docker définies sans démarrer aucun conteneur",
+      "Elle arrête et supprime tous les conteneurs, réseaux et volumes définis dans le docker-compose.yml",
+      "Elle télécharge les dernières versions des images depuis Docker Hub sans rien démarrer"
+    ],
+    "correctIndex": 0,
+    "explanation": "docker-compose up lit docker-compose.yml et démarre l'ensemble de l'application multi-conteneurs (ex : backend + base de données + Redis). Avec --build, il reconstruit les images avant de démarrer. docker-compose down arrête et supprime les conteneurs. docker-compose up -d démarre en mode détaché (background)."
   }
 ]
