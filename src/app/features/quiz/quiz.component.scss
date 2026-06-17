@@ -254,9 +254,12 @@ $code-accent:   #58a6ff;
       font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
       font-size: 0.855rem;
       line-height: 1.7;
-      color: $code-fg;
       white-space: pre;
       tab-size: 4;
+      // color is provided by the highlight.js github-dark theme (.hljs)
+      // background must stay transparent here so .code-block pre sets it
+      background: transparent;
+      padding: 0;
     }
   }
 }

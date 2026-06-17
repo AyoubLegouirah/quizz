@@ -1,7 +1,8 @@
 import { Component, inject, effect } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { QuizService } from '../../core/services/quiz.service';
-import { Category, DifficultyFilter } from '../../core/models/question.model';
+import { Category, CodeLanguage, DifficultyFilter } from '../../core/models/question.model';
+import { CodeHighlightPipe } from '../../shared/pipes/code-highlight.pipe';
 
 const CATEGORY_LABELS: Record<Category | 'random', string> = {
   java_spring: 'Java / Spring Boot',
@@ -17,7 +18,7 @@ const CATEGORY_LABELS: Record<Category | 'random', string> = {
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CodeHighlightPipe],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.scss',
 })
@@ -60,6 +61,21 @@ export class QuizComponent {
 
   toggleBookmark(): void {
     this.quizService.toggleBookmark();
+  }
+
+  private readonly LANG_LABELS: Record<CodeLanguage, string> = {
+    java: 'Java',
+    typescript: 'TypeScript',
+    yaml: 'YAML',
+    sql: 'SQL',
+    dockerfile: 'Dockerfile',
+    bash: 'Bash',
+    json: 'JSON',
+    http: 'HTTP',
+  };
+
+  getLangLabel(lang: CodeLanguage | undefined): string {
+    return lang ? (this.LANG_LABELS[lang] ?? 'Code') : 'Code';
   }
 
   getOptionClass(optionIndex: number): string {

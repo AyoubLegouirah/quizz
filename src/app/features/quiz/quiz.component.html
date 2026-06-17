@@ -60,12 +60,12 @@
       @if (s.question.code) {
         <div class="code-block">
           <div class="code-block__header">
-            <span class="code-block__lang">Java</span>
+            <span class="code-block__lang">{{ getLangLabel(s.question.language) }}</span>
             <span class="code-block__dots">
               <i></i><i></i><i></i>
             </span>
           </div>
-          <pre><code>{{ s.question.code }}</code></pre>
+          <pre><code class="hljs" [innerHTML]="s.question.code | codeHighlight:(s.question.language ?? 'java')"></code></pre>
         </div>
       }
 

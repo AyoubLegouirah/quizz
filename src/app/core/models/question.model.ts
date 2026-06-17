@@ -10,6 +10,8 @@ export type Category =
 export type Difficulty = 'facile' | 'moyen' | 'difficile';
 export type DifficultyFilter = Difficulty | 'toutes';
 
+export type CodeLanguage = 'java' | 'typescript' | 'yaml' | 'sql' | 'dockerfile' | 'bash' | 'json' | 'http';
+
 export interface Question {
   id: string;
   category: Category;
@@ -17,6 +19,7 @@ export interface Question {
   tags: string[];
   question: string;
   code?: string;
+  language?: CodeLanguage;
   options: [string, string, string, string];
   correctIndex: 0 | 1 | 2 | 3;
   explanation: string;
