@@ -74,7 +74,7 @@
       "@RestController est réservé aux microservices, @Controller aux applications web classiques"
     ],
     "correctIndex": 2,
-    "explanation": "@RestController est une méta-annotation qui combine @Controller et @ResponseBody. Cela signifie que chaque méthode du contrôleur retourne directement des données sérialisées (JSON par défaut) plutôt qu'un nom de vue. @Controller seul nécessite d'ajouter @ResponseBody sur chaque méthode ou de retourner un ModelAndView. Les options B, C et D décrivent des comportements incorrects."
+    "explanation": "@RestController est une méta-annotation qui combine @Controller et @ResponseBody. Cela signifie que chaque méthode du contrôleur retourne directement des données sérialisées (JSON par défaut) plutôt qu'un nom de vue. @Controller seul nécessite d'ajouter @ResponseBody sur chaque méthode ou de retourner un ModelAndView. Les trois autres options décrivent des comportements incorrects."
   },
   {
     "id": "java_005",
@@ -114,7 +114,7 @@
       "La référence ne peut pas pointer vers un autre objet, mais l'objet peut être modifié"
     ],
     "correctIndex": 3,
-    "explanation": "final sur une variable de référence signifie que la référence elle-même est constante : on ne peut pas la faire pointer vers un autre objet. Mais si l'objet référencé est mutable (ex: une List), on peut toujours modifier son contenu. Pour rendre un objet véritablement immuable, il faut concevoir sa classe sans setters et avec des champs finals. Les options B, C, D décrivent des comportements qui n'appartiennent pas à final."
+    "explanation": "final sur une variable de référence signifie que la référence elle-même est constante : on ne peut pas la faire pointer vers un autre objet. Mais si l'objet référencé est mutable (ex: une List), on peut toujours modifier son contenu. Pour rendre un objet véritablement immuable, il faut concevoir sa classe sans setters et avec des champs finals. Les trois autres options décrivent des comportements qui n'appartiennent pas à final."
   },
   {
     "id": "java_007",
@@ -828,13 +828,13 @@
     "question": "Quelle méthode Spring Data JPA génère automatiquement une requête pour trouver un utilisateur par email et par statut actif ?",
     "code": "@Repository\npublic interface UserRepository extends JpaRepository<User, Long> {\n    // Quelle déclaration génère : SELECT * FROM users WHERE email = ? AND active = ?\n}",
     "options": [
-      "Les options A et C sont correctes",
+      "findByEmailAndActive() et @Query(\"SELECT u FROM User u WHERE u.email = ?1 AND u.active = ?2\") sont toutes deux correctes",
       "User getByEmailAndIsActive(String email, boolean active)",
       "@Query(\"SELECT u FROM User u WHERE u.email = ?1 AND u.active = ?2\")",
       "Optional<User> findByEmailAndActive(String email, boolean active)"
     ],
     "correctIndex": 0,
-    "explanation": "Les deux options A et C sont correctes. Spring Data JPA génère automatiquement la requête à partir du nom de méthode findByEmailAndActive : il analyse les mots-clés (findBy, And) et les champs correspondants (email, active). L'option C avec @Query produit exactement la même requête de façon explicite. L'option B est incorrecte car Spring Data ne reconnaît pas le préfixe get comme findBy (utiliser find, read, get, query, count, exists)."
+    "explanation": "findByEmailAndActive() et @Query sont toutes deux correctes. Spring Data JPA génère automatiquement la requête à partir du nom de méthode findByEmailAndActive : il analyse les mots-clés (findBy, And) et les champs correspondants (email, active). @Query produit exactement la même requête de façon explicite. getByEmailAndIsActive est incorrecte car Spring Data ne reconnaît pas le préfixe get comme findBy (utiliser find, read, get, query, count, exists)."
   },
   {
     "id": "java_044",
@@ -906,7 +906,7 @@
     ],
     "question": "Quelle annotation Spring MVC mappe une méthode aux requêtes HTTP DELETE ?",
     "options": [
-      "Les options A et B sont correctes",
+      "@DeleteMapping et @RequestMapping(method = RequestMethod.DELETE) sont toutes deux correctes",
       "@RequestMapping(method = RequestMethod.DELETE)",
       "@Delete",
       "@DeleteMapping"
@@ -1791,13 +1791,13 @@
     "question": "Comment créer un bean Spring Boot qui ne s'active que si une propriété est définie ?",
     "code": "@Configuration\npublic class RedisConfig {\n\n    @Bean\n    @ConditionalOnProperty(\n        prefix = \"app.cache\",\n        name = \"type\",\n        havingValue = \"redis\",\n        matchIfMissing = false\n    )\n    public RedisCacheManager cacheManager(RedisConnectionFactory factory) {\n        return RedisCacheManager.builder(factory).build();\n    }\n}",
     "options": [
-      "Les options A et B sont correctes",
+      "Ce code est correct ET matchIfMissing = false est bien la valeur par défaut — les deux affirmations sont vraies",
       "@ConditionalOnProperty ne fonctionne que dans les classes @SpringBootConfiguration",
       "matchIfMissing = false est la valeur par défaut et peut être omis",
       "Ce code est correct : le bean RedisCacheManager est créé uniquement si app.cache.type=redis est dans application.properties"
     ],
     "correctIndex": 0,
-    "explanation": "Les deux options A et B sont correctes. @ConditionalOnProperty crée le bean conditionnellement selon la valeur d'une propriété. matchIfMissing = false (valeur par défaut) signifie que si la propriété est absente, le bean n'est pas créé. matchIfMissing = true créerait le bean même si la propriété est manquante. Cette annotation est massivement utilisée dans l'auto-configuration Spring Boot. @ConditionalOnProperty fonctionne partout où @Bean est utilisé, pas seulement en @SpringBootConfiguration."
+    "explanation": "Ces deux affirmations sont correctes. @ConditionalOnProperty crée le bean conditionnellement selon la valeur d'une propriété. matchIfMissing = false (valeur par défaut) signifie que si la propriété est absente, le bean n'est pas créé. matchIfMissing = true créerait le bean même si la propriété est manquante. Cette annotation est massivement utilisée dans l'auto-configuration Spring Boot. @ConditionalOnProperty fonctionne partout où @Bean est utilisé, pas seulement en @SpringBootConfiguration."
   },
   {
     "id": "java_093",
@@ -2339,7 +2339,7 @@
     ],
     "question": "Que se passe-t-il si on déclare un service dans providers[] d'un composant plutôt que providedIn: 'root' ?",
     "options": [
-      "Les options A et C sont correctes",
+      "Une nouvelle instance est créée pour ce composant et ses descendants, ET elle est détruite avec le composant — les deux affirmations sont vraies",
       "Le service est automatiquement détruit quand le composant est détruit",
       "Une nouvelle instance du service est créée pour ce composant et tous ses enfants — ils ne partagent pas l'instance root",
       "Le service est accessible globalement mais avec une priorité plus élevée"
@@ -3186,7 +3186,7 @@
     "code": "// Option A : constructeur classique\n@Injectable({ providedIn: 'root' })\nexport class OrderService {\n  constructor(\n    private http: HttpClient,\n    private router: Router,\n    private authService: AuthService\n  ) {}\n}\n\n// Option B : inject() function\n@Injectable({ providedIn: 'root' })\nexport class OrderService {\n  private http = inject(HttpClient);\n  private router = inject(Router);\n  private authService = inject(AuthService);\n}",
     "options": [
       "inject() crée de nouvelles instances à chaque appel, le constructeur utilise le singleton",
-      "L'option A est obligatoire pour les services testables avec TestBed",
+      "L'injection via constructeur est obligatoire pour les services testables avec TestBed",
       "inject() ne fonctionne pas dans les services, uniquement dans les composants standalone",
       "Les deux sont fonctionnellement équivalents ; inject() est plus concis, pas de constructeur explicite, et peut être utilisé en dehors des classes (guards, interceptors fonctionnels)"
     ],
